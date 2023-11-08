@@ -14,7 +14,6 @@ $detail = getAllDataOrderDetailWithAll($_GET['orderId']);
 
 <body>
     <?php include "./template/nav.php"; ?>
-
     <div class="container mt-5">
         <div>
             <h5>Detail Order</h5>
