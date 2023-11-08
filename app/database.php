@@ -75,7 +75,6 @@ function insertDataOrder($pelanggan, $tanggal, $jam, $pelayan, $meja)
     ");
 }
 
-
 // =================== Data Order Detail =======================
 
 function getAllDataOrderDetailWithMenuById($orderId)
