@@ -15,30 +15,9 @@
     include "../database.php";
     $data;
     if (isset($_GET["nameU"])) {
-        if (($_GET["nameU"]) == "asc") {
-            $data = mysqli_query(
-                DB,
-                "SELECT * FROM menu ORDER BY nama_makanan ASC"
-            );
-        } elseif (($_GET["nameU"]) == "desc") {
-            $data = mysqli_query(
-                DB,
-                "SELECT * FROM menu ORDER BY nama_makanan DESC"
-            );
-        }
+        $data = sortMenuByName($_GET["nameU"]);
     } elseif (isset($_GET["hargaU"])) {
-
-        if (($_GET["hargaU"]) == "asc") {
-            $data = mysqli_query(
-                DB,
-                "SELECT * FROM menu ORDER BY harga ASC"
-            );
-        } elseif (($_GET["hargaU"]) == "desc") {
-            $data = mysqli_query(
-                DB,
-                "SELECT * FROM menu ORDER BY harga DESC"
-            );
-        }
+        $data = sortMenuByPrice($_GET["hargaU"]);
     } else {
         $data = getAllDatamenu();
     }

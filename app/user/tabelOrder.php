@@ -6,10 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detail</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <?php
 include "../database.php";
-$order = getAllDataOrder();
+$order;
+if (isset($_GET["idOrder"])) {
+    $order = sortOrderById($_GET['idOrder']);
+} elseif (isset($_GET["noMeja"])) {
+    $order = sortOrderByNoMeja($_GET['noMeja']);
+} elseif (isset($_GET["Tgl"])) {
+    $order = sortOrderByDate($_GET['Tgl']);
+} else {
+    $order = getAllDataOrder();
+}
 ?>
 
 <body style="background-color: #eceff5;">
@@ -21,10 +31,64 @@ $order = getAllDataOrder();
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Id Order</th>
-                        <th>Tanggal</th>
+                        <th><a style="text-decoration: none; color:black" href="tabelOrder.php?idOrder=<?php if (isset($_GET["idOrder"])) {
+                                                                                                            if ($_GET["idOrder"] == "asc") {
+                                                                                                                echo "desc";
+                                                                                                            } elseif ($_GET["idOrder"] == "desc") {
+                                                                                                                echo "asc";
+                                                                                                            }
+                                                                                                        } else {
+                                                                                                            echo "asc";
+                                                                                                        } ?>">Id Order
+                                <?php if (isset($_GET["idOrder"])) {
+                                    if (($_GET["idOrder"]) == "asc") {
+                                        echo " <i class='fa fa-sort-asc'></i>";
+                                    } else {
+                                        echo " <i class='fa fa-sort-desc'></i>";
+                                    }
+                                } else {
+                                    echo " <i class='fa fa-sort'></i>";
+                                }
+                                ?></a></th>
+                        <th><a style="text-decoration: none; color:black" href="tabelOrder.php?Tgl=<?php if (isset($_GET["Tgl"])) {
+                                                                                                        if ($_GET["Tgl"] == "asc") {
+                                                                                                            echo "desc";
+                                                                                                        } elseif ($_GET["Tgl"] == "desc") {
+                                                                                                            echo "asc";
+                                                                                                        }
+                                                                                                    } else {
+                                                                                                        echo "asc";
+                                                                                                    } ?>">Tanggal
+                                <?php if (isset($_GET["Tgl"])) {
+                                    if (($_GET["Tgl"]) == "asc") {
+                                        echo " <i class='fa fa-sort-asc'></i>";
+                                    } else {
+                                        echo " <i class='fa fa-sort-desc'></i>";
+                                    }
+                                } else {
+                                    echo " <i class='fa fa-sort'></i>";
+                                }
+                                ?></a></th>
                         <th>Pelayan</th>
-                        <th>No Meja</th>
+                        <th><a style="text-decoration: none; color:black" href="tabelOrder.php?noMeja=<?php if (isset($_GET["noMeja"])) {
+                                                                                                            if ($_GET["noMeja"] == "asc") {
+                                                                                                                echo "desc";
+                                                                                                            } elseif ($_GET["noMeja"] == "desc") {
+                                                                                                                echo "asc";
+                                                                                                            }
+                                                                                                        } else {
+                                                                                                            echo "asc";
+                                                                                                        } ?>">Meja
+                                <?php if (isset($_GET["noMeja"])) {
+                                    if (($_GET["noMeja"]) == "asc") {
+                                        echo " <i class='fa fa-sort-asc'></i>";
+                                    } else {
+                                        echo " <i class='fa fa-sort-desc'></i>";
+                                    }
+                                } else {
+                                    echo " <i class='fa fa-sort'></i>";
+                                }
+                                ?></a></th>
                         <th>Total Bayar</th>
                         <th>Status</th>
                         <th>Opsi</th>

@@ -18,10 +18,10 @@
     <div class="h-100 d-flex align-items-center justify-content-center">
         <div>
             <h1 class="text-light m-2">Warung My</h1>
-            <a href="./user/tabelMenu.php">
+            <a href="tabelMenu.php">
                 <button type="button" class="btn btn-primary ml-2 g-col-6">Lihat Menu</button>
             </a>
-            <a href="./user/formOrder.php">
+            <a href="formOrder.php">
                 <button type="button" class="btn btn-primary ml-2 g-col-6">Pesan Sekarang</button>
             </a>
         </div>

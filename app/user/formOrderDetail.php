@@ -77,7 +77,6 @@ $detailOrder = getAllDataOrderDetailWithMenuById($lastOrder[0]["order_id"]);
                         </thead>
                         <tbody>
                             <?php
-                            $total = 0;
                             foreach ($detailOrder as $details) { ?>
                                 <tr>
                                     <td>
@@ -105,13 +104,11 @@ $detailOrder = getAllDataOrderDetailWithMenuById($lastOrder[0]["order_id"]);
                                         <a class="btn btn-danger" href="<?= $herf ?>">Batal</a>
                                     </td>
                                 </tr>
-                            <?php
-                                $total += $details["sub_total"];
-                            } ?>
+                            <?php } ?>
                             <tr>
                                 <td style="background-color:#ddedf5;"></td>
                                 <td style="background-color:#ddedf5;" colspan="3"><b>Total</b></td>
-                                <td style="background-color:#ddedf5;" colspan="2"><b><?= rupiahFormat($total) ?></b></td>
+                                <td style="background-color:#ddedf5;" colspan="2"><b><?= rupiahFormat(getTotal($lastOrder[0]['order_id'])) ?></b></td>
                             </tr>
                         </tbody>
                     </table>
@@ -123,7 +120,6 @@ $detailOrder = getAllDataOrderDetailWithMenuById($lastOrder[0]["order_id"]);
                         <button name="cancelTransaksi" class="btn btn-danger mt-5">Batalkan Transaksi</button>
                     </form>
                     <form action="" method="post">
-                        <input name="total" type="hidden" value="<?= $total ?>">
                         <button type="submit" name="buatTransaksi" class="btn btn-success mt-5">Buat Transaksi</button>
                     </form>
                 </div>
@@ -159,7 +155,7 @@ if (isset($_GET["detailId"])) {
 
 // =========== Kirim Transaksi =========
 if (isset($_POST["buatTransaksi"])) {
-    updateDataOrder($lastOrder[0]['order_id'], $_POST["total"]);
+    updateDataOrder($lastOrder[0]['order_id']);
     echo "<meta http-equiv=refresh content=1;URL='tabelOrder.php'>";
 }
 

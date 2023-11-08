@@ -55,5 +55,5 @@ if (isset($_POST["ubah"])) {
     updateDatamenu($_GET["id"], $_POST["nama"], $_POST["harga"]);
     echo "Data berhasil diubah";
 ?>
-    <meta http-equiv="refresh" content="1 ;URL='/tabelMenu.php'">
+    <meta http-equiv="refresh" content="1 ;URL='tabelMenu.php'">
 <?php } ?>

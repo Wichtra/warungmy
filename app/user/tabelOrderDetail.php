@@ -86,18 +86,17 @@ $detail = getAllDataOrderDetailWithAll($_GET['orderId']);
                                     <?= rupiahFormat($details["sub_total"])  ?>
                                 </td>
                                 <td>
-                                    <a class="btn btn-danger" href="?idMenu=<?= $details["order_detail_id"] ?>">Batal</a>
+                                    <a class="btn btn-danger" href="?orderId=<?= $detail[0]['order_id'] ?>&detailId=<?= $details['order_detail_id'] ?>">Batal</a>
                                 </td>
                             </tr>
-                        <?php
-                            $total += $details["sub_total"];
-                        } ?>
+
+                        <?php } ?>
                     </tbody>
                 </table>
             </div>
             <div class="d-flex gap-5 mt-5">
                 <p><b>Total : </b></p>
-                <span><?= rupiahFormat($detail[0]["total"]) ?></span>
+                <span><?= rupiahFormat(getTotal($_GET['orderId'])) ?></span>
             </div>
             <div>
                 <a href="./formOrderDetail.php?orderId=<?= $detail[0]["order_id"] ?>" class="btn btn-primary">Tambah Order</a>
@@ -111,6 +110,6 @@ $detail = getAllDataOrderDetailWithAll($_GET['orderId']);
 <?php
 if (isset($_GET["detailId"])) {
     deleteDataDetailOrderById($_GET["detailId"]);
-    echo "
-    <meta http-equiv=refresh content=1;URL='tabelOrderDetail.php'>";
+    updateDataOrder($_GET["orderId"]);
+    echo "<meta http-equiv='refresh' content='1;URL=tabelOrderDetail.php?orderId=" . $detail[0]['order_id'] . "'>";
 } ?>

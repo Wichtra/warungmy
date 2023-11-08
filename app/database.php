@@ -35,6 +35,36 @@ function insertDatamenuu()
     ");
 }
 
+function sortMenuByName($cond)
+{
+    if ($cond == "asc") {
+        return mysqli_query(DB, "SELECT * FROM menu 
+        ORDER BY nama_makanan ASC");
+    } elseif ($cond == "desc") {
+        return mysqli_query(
+            DB,
+            "SELECT * FROM menu 
+        ORDER BY nama_makanan DESC"
+        );
+    }
+}
+
+function sortMenuByPrice($cond)
+{
+    if ($cond == "asc") {
+        return mysqli_query(
+            DB,
+            "SELECT * FROM menu 
+        ORDER BY harga ASC"
+        );
+    } elseif ($cond == "desc") {
+        return mysqli_query(
+            DB,
+            "SELECT * FROM menu 
+        ORDER BY harga DESC"
+        );
+    }
+}
 
 /// =================== Data Order ======================= ///
 
@@ -42,18 +72,23 @@ function getAllDataOrder()
 {
     return mysqli_query(DB, "SELECT * FROM `order`")->fetch_all(MYSQLI_ASSOC);
 }
+
 function getDataOrderById($orderId)
 {
     return mysqli_query(DB, "SELECT * FROM `order` WHERE order_id = '$orderId' ")->fetch_all(MYSQLI_ASSOC);
 }
+
 function getLastDataOrder()
 {
     return mysqli_query(DB, "SELECT * FROM `order` ORDER BY order_id DESC LIMIT 1;")->fetch_all(MYSQLI_ASSOC);
 }
 
-function updateDataOrder($orderId, $total)
+function updateDataOrder($orderId)
 {
-    mysqli_query(DB, "UPDATE `order`  SET  total = $total WHERE order_id = $orderId ");
+    $total = getTotal($orderId);
+    mysqli_query(DB, "UPDATE `order` 
+    SET total = $total 
+    WHERE order_id = $orderId;");
 }
 
 function eraseDataOrderById($menuId)
@@ -73,6 +108,55 @@ function insertDataOrder($pelanggan, $tanggal, $jam, $pelayan, $meja)
     no_meja = '$meja',
     total='0';
     ");
+}
+
+function sortOrderById($cond)
+{
+    if ($cond == "asc") {
+        return mysqli_query(
+            DB,
+            "SELECT * FROM `order` 
+        ORDER BY order_id ASC"
+        );
+    } elseif ($cond == "desc") {
+        return mysqli_query(
+            DB,
+            "SELECT * FROM `order` 
+        ORDER BY order_id DESC"
+        );
+    }
+}
+function sortOrderByNoMeja($cond)
+{
+    if ($cond == "asc") {
+        return mysqli_query(
+            DB,
+            "SELECT * FROM `order` 
+        ORDER BY no_meja ASC"
+        );
+    } elseif ($cond == "desc") {
+        return mysqli_query(
+            DB,
+            "SELECT * FROM `order` 
+        ORDER BY no_meja DESC"
+        );
+    }
+}
+function sortOrderByDate($cond)
+{
+    if ($cond == "asc") {
+        return mysqli_query(
+            DB,
+            "SELECT * FROM `order` 
+        ORDER BY tanggal_pesanan ASC"
+        );
+    } elseif ($cond == "desc") {
+        return mysqli_query(
+            DB,
+            "SELECT * FROM `order` 
+        ORDER BY tanggal_pesanan DESC"
+        );
+    }
 }
 
 // =================== Data Order Detail =======================
@@ -105,7 +189,7 @@ function getAllDataOrderDetailWithAll($orderId)
     WHERE orderdetail.order_id = $orderId;")->fetch_all(MYSQLI_ASSOC);
 }
 
-// ===================== macam ==================
+// ===================== macam macam ==================
 function getDatee()
 {
     date_default_timezone_set('Asia/Jakarta');
@@ -115,4 +199,9 @@ function getDatee()
 function rupiahFormat($uang)
 {
     return "Rp " . number_format($uang, 0, ',', '.');
+}
+
+function getTotal($id)
+{
+    return mysqli_query(DB, "SELECT SUM(sub_total) FROM orderdetail WHERE order_id = '$id';")->fetch_assoc()["SUM(sub_total)"];
 }
