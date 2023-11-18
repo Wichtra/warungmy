@@ -1,5 +1,5 @@
 <?php
-define("DB", mysqli_connect("localhost", "root", "", "mystore"));
+define("DB", mysqli_connect("localhost", "will", "Db302131", "mystore"));
 
 // =================== Data Menu =======================
 
@@ -91,23 +91,30 @@ function updateDataOrder($orderId)
     WHERE order_id = $orderId;");
 }
 
-function eraseDataOrderById($menuId)
+function eraseDataOrderById($orderId)
 {
-    mysqli_query(DB, "DELETE FROM `orderdetail` WHERE order_id = $menuId");
-    mysqli_query(DB, "DELETE FROM `order` WHERE order_id = $menuId");
+    mysqli_query(DB, "DELETE FROM `orderdetail` WHERE order_id = $orderId");
+    mysqli_query(DB, "DELETE FROM `order` WHERE order_id = $orderId");
 }
 
-function insertDataOrder($pelanggan, $tanggal, $jam, $pelayan, $meja)
+function insertDataOrder($pelanggan, $tanggal, $check_in, $check_out, $pelayan, $meja)
 {
-    echo "$jam";
-    mysqli_query(DB, "INSERT INTO `order` SET 
+    $check = mysqli_query(DB, "SELECT check_out 
+    FROM `order` 
+    WHERE no_meja = '$meja' and check_in > '$check_in' and check_out < '$check_out';");
+    if ($check) {
+        mysqli_query(DB, "INSERT INTO `order` SET 
     pelanggan = '$pelanggan',
     tanggal_pesanan = '$tanggal',
-    jam = '$jam',
+    check_in = '$check_in',
+    check_out = '$check_out',
     nama_pelayan = '$pelayan',
     no_meja = '$meja',
     total='0';
     ");
+    } else {
+        echo "sudah dimpati";
+    }
 }
 
 function sortOrderById($cond)
@@ -142,6 +149,7 @@ function sortOrderByNoMeja($cond)
         );
     }
 }
+
 function sortOrderByDate($cond)
 {
     if ($cond == "asc") {
@@ -157,6 +165,19 @@ function sortOrderByDate($cond)
         ORDER BY tanggal_pesanan DESC"
         );
     }
+}
+
+function checkTable($meja, $entry, $out)
+{
+    return mysqli_query(DB, "SELECT check_out 
+    FROM `order` 
+    WHERE no_meja = '$meja' 
+        AND (
+            (check_out BETWEEN '$entry' AND '$out') 
+            OR 
+            (check_in BETWEEN '$entry' AND '$out')
+        );
+    ")->fetch_all(MYSQLI_ASSOC);
 }
 
 // =================== Data Order Detail =======================
@@ -187,6 +208,13 @@ function getAllDataOrderDetailWithAll($orderId)
     INNER JOIN menu ON orderdetail.menu_id=menu.menu_id 
     INNER JOIN `order` ON orderdetail.order_id =`order`.order_id
     WHERE orderdetail.order_id = $orderId;")->fetch_all(MYSQLI_ASSOC);
+}
+
+// ==================== Pelayan ======================
+function getRandomWaiter()
+{
+    return mysqli_query(DB, "SELECT nama_pelayan 
+    FROM `pelayan` ORDER BY RAND() limit 1;")->fetch_assoc();
 }
 
 // ===================== macam macam ==================

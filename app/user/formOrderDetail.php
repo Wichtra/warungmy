@@ -40,9 +40,9 @@ $detailOrder = getAllDataOrderDetailWithMenuById($lastOrder[0]["order_id"]);
                     <input class="form-control" type="date" value="<?= getDatee() ?>" readonly>
                 </div>
                 <div>
-                    <label><b>Keterangan</b></label>
+                    <label><b>Jam</b></label>
                     <br>
-                    <input class="form-control" type="text" value="<?= $lastOrder[0]['status'] ?>" readonly>
+                    <input class="form-control" type="text" value="<?= $lastOrder[0]['check_in'] ?>" readonly>
                 </div>
             </div>
             <div class="container-fluid d-flex gap-4">
@@ -164,7 +164,7 @@ if (isset($_POST["cancelTransaksi"])) {
     if (isset($_GET["orderId"])) {
         echo "<meta http-equiv=refresh content=1;URL='tabelOrder.php'>";
     } else {
-        deleteDataDetailOrderById($lastOrder[0]['order_id']);
+        eraseDataOrderById($lastOrder[0]['order_id']);
         echo "<meta http-equiv=refresh content=1;URL='tabelOrder.php'>";
     }
 }

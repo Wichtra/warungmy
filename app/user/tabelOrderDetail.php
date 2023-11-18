@@ -37,6 +37,10 @@ $detail = getAllDataOrderDetailWithAll($_GET['orderId']);
                     <p><?= $detail[0]["tanggal_pesanan"] ?></p>
                 </div>
                 <div>
+                    <p><b>Jam</b></p>
+                    <p><?= $detail[0]["check_in"] ?></p>
+                </div>
+                <div>
                     <p><b>Keterangan</b></p>
                     <p><?= $detail[0]["status"] ?></p>
                 </div>
@@ -99,7 +103,7 @@ $detail = getAllDataOrderDetailWithAll($_GET['orderId']);
                 <span><?= rupiahFormat(getTotal($_GET['orderId'])) ?></span>
             </div>
             <div>
-                <a href="./formOrderDetail.php?orderId=<?= $detail[0]["order_id"] ?>" class="btn btn-primary">Tambah Order</a>
+                <a href="./formOrderDetail.php?orderId=<?= $detail[0]['order_id'] ?>" class="btn btn-primary">Tambah Order</a>
             </div>
         </div>
     </div>

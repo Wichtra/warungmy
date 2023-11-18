@@ -31,15 +31,16 @@ if (isset($_GET["idOrder"])) {
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th><a style="text-decoration: none; color:black" href="tabelOrder.php?idOrder=<?php if (isset($_GET["idOrder"])) {
-                                                                                                            if ($_GET["idOrder"] == "asc") {
-                                                                                                                echo "desc";
-                                                                                                            } elseif ($_GET["idOrder"] == "desc") {
-                                                                                                                echo "asc";
-                                                                                                            }
-                                                                                                        } else {
-                                                                                                            echo "asc";
-                                                                                                        } ?>">Id Order
+                        <th><a style="text-decoration: none; color:black" href="tabelOrder.php?idOrder=<?php 
+                        if (isset($_GET["idOrder"])) {
+                            if ($_GET["idOrder"] == "asc") {
+                                echo "desc";
+                            } elseif ($_GET["idOrder"] == "desc") {
+                                echo "asc";
+                            }
+                        } else {
+                            echo "asc";
+                        } ?>">Id Order
                                 <?php if (isset($_GET["idOrder"])) {
                                     if (($_GET["idOrder"]) == "asc") {
                                         echo " <i class='fa fa-sort-asc'></i>";
@@ -50,15 +51,16 @@ if (isset($_GET["idOrder"])) {
                                     echo " <i class='fa fa-sort'></i>";
                                 }
                                 ?></a></th>
-                        <th><a style="text-decoration: none; color:black" href="tabelOrder.php?Tgl=<?php if (isset($_GET["Tgl"])) {
-                                                                                                        if ($_GET["Tgl"] == "asc") {
-                                                                                                            echo "desc";
-                                                                                                        } elseif ($_GET["Tgl"] == "desc") {
-                                                                                                            echo "asc";
-                                                                                                        }
-                                                                                                    } else {
-                                                                                                        echo "asc";
-                                                                                                    } ?>">Tanggal
+                        <th><a style="text-decoration: none; color:black" href="tabelOrder.php?Tgl=<?php 
+                        if (isset($_GET["Tgl"])) {
+                            if ($_GET["Tgl"] == "asc") {
+                            echo "desc";
+                        } elseif ($_GET["Tgl"] == "desc") {
+                            echo "asc";
+                        }
+                        } else {
+                        echo "asc";
+                    } ?>">Tanggal
                                 <?php if (isset($_GET["Tgl"])) {
                                     if (($_GET["Tgl"]) == "asc") {
                                         echo " <i class='fa fa-sort-asc'></i>";
@@ -70,15 +72,16 @@ if (isset($_GET["idOrder"])) {
                                 }
                                 ?></a></th>
                         <th>Pelayan</th>
-                        <th><a style="text-decoration: none; color:black" href="tabelOrder.php?noMeja=<?php if (isset($_GET["noMeja"])) {
-                                                                                                            if ($_GET["noMeja"] == "asc") {
-                                                                                                                echo "desc";
-                                                                                                            } elseif ($_GET["noMeja"] == "desc") {
-                                                                                                                echo "asc";
-                                                                                                            }
-                                                                                                        } else {
-                                                                                                            echo "asc";
-                                                                                                        } ?>">Meja
+                        <th><a style="text-decoration: none; color:black" href="tabelOrder.php?noMeja=<?php 
+                        if (isset($_GET["noMeja"])) {
+                             if ($_GET["noMeja"] == "asc") {
+                                 echo "desc";
+                             } elseif ($_GET["noMeja"] == "desc") {
+                                 echo "asc";
+                             }
+                        } else {
+                            echo "asc";
+                         } ?>">Meja
                                 <?php if (isset($_GET["noMeja"])) {
                                     if (($_GET["noMeja"]) == "asc") {
                                         echo " <i class='fa fa-sort-asc'></i>";
